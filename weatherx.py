@@ -9,6 +9,7 @@
 #   * Somewhat generalized for any number of days
 #
 # this is an edited local copy from a git clone
+# another edit, but on a different machine
 #===============================================================================
 import sys
 import httplib
