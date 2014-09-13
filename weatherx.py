@@ -8,7 +8,7 @@
 #   * Set location with LAT and LON (negative LON for west)
 #   * Somewhat generalized for any number of days
 #
-# this is an editted local copy from a git clone
+# this is an edited local copy from a git clone
 #===============================================================================
 import sys
 import httplib
