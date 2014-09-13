@@ -7,6 +7,8 @@
 #   * NOAA's doc: http://graphical.weather.gov/xml/rest.php
 #   * Set location with LAT and LON (negative LON for west)
 #   * Somewhat generalized for any number of days
+#
+# this is an editted local copy from a git clone
 #===============================================================================
 import sys
 import httplib
