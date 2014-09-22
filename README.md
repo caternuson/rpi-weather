@@ -8,7 +8,7 @@ Python code for 8x8 LED weather forecast display.
 * bitmaps - folder containing 8x8 bitmaps in a simple format
 * clock.py - turns the display in to a clock (uses LED8x8_Digits.py)
 * count.py - simple counting display (uses LED8x8_Digits.py)
-* fuzz.py - white nose display
+* fuzz.py - white noise display
 * icon_test.py - test out the icons in LED8x8_Icons.py
 * LED8x8_Digits.py - a python class containing various weather icons
 * LED8x8_Icons.py - a python class containing the digits 0-9
