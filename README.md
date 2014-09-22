@@ -1,7 +1,8 @@
 rpi-weather
 ===========
 
-Python code for 8x8 LED weather forecast display.
+Python code for 8x8 LED weather forecast display. The main program is **weatherx.py**. All other programs are just
+examples of other things that can be done with the display. See the wiki for other details.
 
 * ani2.py - animation example using an array of frames
 * ani.py - basic example of low level writing for fast display changes
