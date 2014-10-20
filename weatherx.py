@@ -13,14 +13,14 @@ import sys
 import httplib
 import time
 from xml.dom.minidom import parseString
-from Adafruit_Raspberry_Pi_Python_Code.Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
+from Adafruit_LED_Backpack import Matrix8x8
 from LED8x8_Icons import Icons as ICONS
 
 matrix = []
-matrix.append(EightByEight(address=0x70))
-matrix.append(EightByEight(address=0x71))
-matrix.append(EightByEight(address=0x72))
-matrix.append(EightByEight(address=0x73))
+matrix.append(Matrix8x8.Matrix8x8(address=0x70))
+matrix.append(Matrix8x8.Matrix8x8(address=0x71))
+matrix.append(Matrix8x8.Matrix8x8(address=0x72))
+matrix.append(Matrix8x8.Matrix8x8(address=0x73))
 
 #---------------------
 # do this if anything bad happens
@@ -53,7 +53,8 @@ REQUEST = REQ_BASE + "lat={0}&".format(LAT)+\
 def set_led(bitmap,i):
   for x in xrange(8):
     for y in xrange(8):
-      matrix[i].setPixel(x, y, bitmap[y][x])
+      matrix[i].set_pixel(x, y, bitmap[y][x])
+  matrix[i].write_display()
 
 #---------------------
 # make the request
