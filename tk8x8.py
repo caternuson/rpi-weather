@@ -5,9 +5,9 @@
 # 8x8 LED matrix.
 #===============================================================================
 from Tkinter import *
-from Adafruit_Raspberry_Pi_Python_Code.Adafruit_LEDBackpack.Adafruit_8x8 import EightByEight
+from Adafruit_LED_Backpack import Matrix8x8
 
-grid = EightByEight(address=0x73)
+matrix = Matrix8x8.Matrix8x8(address=0x70)
 
 # define grid size
 NX = 8
@@ -31,8 +31,7 @@ class App:
         self.checks = [[0 for x in xrange(NX)] for y in xrange(NY)]
         for x in xrange(NX):
             for y in xrange(NY):
-                self.checks[x][y] = \
-        Checkbutton(frame, text="", variable=self.vars[x][y], command=self.display)
+                self.checks[x][y] = Checkbutton(frame, text="", variable=self.vars[x][y], command=self.display)
 
         for x in xrange(NX):
             for y in xrange(NY):
@@ -42,38 +41,53 @@ class App:
         # buttons
         #-----------
         self.b1 = Button(frame, text="CLEAR", command=self.clear_all)
-        self.b1.grid(row=NX+1,column=1,columnspan=NX)
+        self.b1.grid(row=NX+1,column=0,columnspan=4)
  
         self.b2 = Button(frame, text="SAVE", command=self.save_it)
-        self.b2.grid(row=NX+2,column=1,columnspan=NX)
- 
-        self.b3 = Button(frame, text="SAVE BM", command=self.save_bitmap)
-        self.b3.grid(row=NX+3,column=1,columnspan=NX)
+        self.b2.grid(row=NX+1,column=4,columnspan=4)
+        
+        #-----------
+        # value
+        #-----------
+        self.tx_raw64 = Text(frame,width=18, height=1)
+        self.tx_raw64.grid(row=NX+3,column=0,columnspan=NX)
+        self.tx_raw64.insert("1.0","0x0000000000000000")
 
+    #------------------------
+    # text report of current display
+    #-----------------------
     def report(self):
         print "-"*17
         for x in range(8):
-         print "",
-         for y in range(8):
-          print self.vars[x][y].get(),
-         print
+            print "",
+            for y in range(8):
+                print self.vars[x][y].get(),
+            print
         print "-"*17
 
     #------------------------
     # display current results on grid
     #-----------------------
     def display(self):
-        for x in range(0, 8):
-          for y in range(0, 8):
-            grid.setPixel(x, y, self.vars[y][x].get())
+        value = 0
+        for y in range(0, 8):
+            row_byte = 0
+            for x in range(0, 8):
+                bit = self.vars[y][x].get()
+                row_byte += bit<<x 
+                matrix.set_pixel(x, y, bit)
+            value += row_byte<<(8*y)    
+        matrix.write_display()
+        self.tx_raw64.delete("1.0",END)
+        self.tx_raw64.insert("1.0",'0x'+format(value,'016x'))
 
     #-----------------------
     # clear it all
     #-----------------------
     def clear_all(self):
         for x in range(0, 8):
-          for y in range(0, 8):
-           self.vars[x][y].set(0),
+            for y in range(0, 8):
+                self.vars[x][y].set(0),
         self.display()
 
     #-----------------------
@@ -81,18 +95,11 @@ class App:
     #-----------------------
     def save_it(self):
         with open("led.out","w") as FILE:
-          for x in range(0, 8):
-            for y in range(0, 8):
-              FILE.write("{0}, ".format(self.vars[x][y].get()))
-            FILE.write("\n")
-
-    #-----------------------
-    # save bitmap
-    #-----------------------
-    def save_bitmap(self):
-        with open("bitmap.out","w") as FILE:
-           FILE.write("{0}\n".format(grid.disp.getBuffer()))
-          
+            for x in range(0, 8):
+                for y in range(0, 8):
+                    FILE.write("{0}, ".format(self.vars[x][y].get()))
+                FILE.write("\n")
+                
 #-------------------------------------------------------------------------------
 #  M A I N
 #-------------------------------------------------------------------------------
