@@ -17,10 +17,12 @@ from Adafruit_LED_Backpack import Matrix8x8
 from led8x8icons import LED8x8_ICONS
 
 matrix = []
-matrix.append(Matrix8x8.Matrix8x8(address=0x70))
-matrix.append(Matrix8x8.Matrix8x8(address=0x71))
-matrix.append(Matrix8x8.Matrix8x8(address=0x72))
-matrix.append(Matrix8x8.Matrix8x8(address=0x73))
+matrix.append(Matrix8x8.Matrix8x8(address=0x70, busnum=1))
+matrix.append(Matrix8x8.Matrix8x8(address=0x71, busnum=1))
+matrix.append(Matrix8x8.Matrix8x8(address=0x72, busnum=1))
+matrix.append(Matrix8x8.Matrix8x8(address=0x73, busnum=1))
+for m in matrix:
+  m.begin()
 
 #------------------------------------
 # do this if anything bad happens
