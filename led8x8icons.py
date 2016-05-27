@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #===============================================================================
 # led8x8icons.py
 #
@@ -28,9 +27,9 @@
 #
 #        def set_raw64(value):
 #            led8x8matrix.clear()
-#            for y in [0, 1, 2, 3, 4, 5, 6, 7]:
+#            for y in xrange(8):
 #                row_byte = value>>(8*y)
-#                for x in [0, 1, 2, 3, 4, 5, 6, 7]:
+#                for x in xrange(8):
 #                    pixel_bit = row_byte>>x&1 
 #                    led8x8matrix.set_pixel(x,y,pixel_bit) 
 #            led8x8mmatrix.write_display() 

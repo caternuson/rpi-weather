@@ -1,36 +1,34 @@
-#!/usr/bin/python
 #===============================================================================
 # weatherx.py
 #
 # Get weather forecast from NOAA and turn it into "icons"
-#   * Kind of tailored to work with 12-hour format
+#   * Tailored to work with 12-hour format
 #   * NOAA's doc: http://graphical.weather.gov/xml/rest.php
-#   * Set location with LAT and LON (negative LON for west)
+#   * Set location using zipcode
 #   * Somewhat generalized for any number of days
 #
 # 2014-09-14
 # Carter Nelson
 #===============================================================================
-import rpi_weather
-from led8x8icons import LED8x8_ICONS
 import time
 import httplib
-from xml.dom.minidom import parseString
 import sys
+from xml.dom.minidom import parseString
 
-display = rpi_weather.RpiWeather()
+from rpi_weather import RpiWeather
+from led8x8icons import LED8x8_ICONS
+
+display = RpiWeather()
 
 #------------------------------------
 # set up
 #------------------------------------
 NOAA_URL    = "graphical.weather.gov"
 REQ_BASE    = r"/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?"
-LAT         = 47.54583
-LON         = -122.31361
+ZIPCODE     = 98109
 TIME_FORMAT = "12+hourly"
 NUM_DAYS    = 4
-REQUEST = REQ_BASE + "lat={0}&".format(LAT)+\
-                     "lon={0}&".format(LON)+\
+REQUEST = REQ_BASE + "zipCodeList={0}&".format(ZIPCODE)+\
                      "format={0}&".format(TIME_FORMAT)+\
                      "numDays={0}".format(NUM_DAYS)
 
@@ -38,8 +36,8 @@ REQUEST = REQ_BASE + "lat={0}&".format(LAT)+\
 # do this if anything bad happens
 #------------------------------------
 def giveup():
-    for i in xrange(4):
-        display.set_raw64(LED8x8_ICONS['UNKNOWN'],i)
+    for matrix in xrange(4):
+        display.set_raw64(LED8x8_ICONS['UNKNOWN'],matrix)
     print "something happened...giving up...."
     sys.exit(1)
     
@@ -53,14 +51,6 @@ try:
     data = resp.read()
 except:
     giveup()
-
-#filename = time.strftime('%y%m%d_%H%M')+"_weather.log"
-#with open(filename,"w") as FILE:
-#  FILE.write("-"*80+"\n")
-#  FILE.write("URL = " + NOAA_URL + "\n")
-#  FILE.write("REQUEST = " + REQUEST + "\n")
-#  FILE.write("-"*80+"\n")
-#  FILE.write(data)
 
 #------------------------------------
 # parse the XML response into the DOM
@@ -76,15 +66,12 @@ if len(vals)<2*NUM_DAYS:
     giveup()
 
 #------------------------------------
-# The first entry may be for the current day, or current night
-# I'll try and fix that using local time.
-# Then I want every other entry for the daytime forecast
+# get forecast
 #------------------------------------
 offset = 0
-if time.localtime().tm_hour > 12:
+if time.localtime().tm_hour < 6:
     offset = 1
 forecast = [e.getAttribute("weather-summary") for e in vals[offset::2]]
-#print forecast
 
 #------------------------------------
 # print results

@@ -1,6 +1,5 @@
-#!/usr/bin/python
 #===============================================================================
-# rpi-weather.py
+# rpi_weather.py
 #
 # Class for interfacing to Raspberry Pi with four Adafruit 8x8 LEDs attached.
 #
@@ -21,33 +20,53 @@ class RpiWeather():
         for m in self.matrix:
           m.begin()
           
+    def is_valid_matrix(self, matrix):
+        """ Returns True if matrix number is valid, otherwise False. """
+        return matrix in xrange(len(self.matrix))     
+          
     def clear_disp(self, ):
+        """ Clear each matrix in the display. """
         for m in self.matrix:
             m.clear()
+            m.write_display()
+            
+    def set_pixel(self, x, y, matrix=0, value=1):
+        """ Set pixel at position x, y for specified matrix to the given value. """
+        if not self.is_valid_matrix(matrix):
+            return
+        self.matrix[matrix].set_pixel(x, y, value)
+        self.matrix[matrix].write_display()
           
-    def set_led(self, bitmap, i):
+    def set_bitmap(self, bitmap, matrix=0):
+        """ Set specified matrix to provided bitmap. """
+        if not self.is_valid_matrix(matrix):
+            return
         for x in xrange(8):
             for y in xrange(8):
-                self.matrix[i].set_pixel(x, y, bitmap[y][x])
-        self.matrix[i].write_display()
+                self.matrix[matrix].set_pixel(x, y, bitmap[y][x])
+        self.matrix[matrix].write_display()
       
-    def set_raw64(self, value, i):
-        self.matrix[i].clear()
-        for y in [0, 1, 2, 3, 4, 5, 6, 7]:
+    def set_raw64(self, value, matrix=0):
+        """ Set specified matrix to bitmap defined by 64 bit value. """
+        if not self.is_valid_matrix(matrix):
+            return        
+        self.matrix[matrix].clear()
+        for y in xrange(8):
             row_byte = value>>(8*y)
-            for x in [0, 1, 2, 3, 4, 5, 6, 7]:
+            for x in xrange(8):
                 pixel_bit = row_byte>>x&1 
-                self.matrix[i].set_pixel(x,y,pixel_bit) 
-        self.matrix[i].write_display()
+                self.matrix[matrix].set_pixel(x, y, pixel_bit) 
+        self.matrix[matrix].write_display()
         
-    def disp_num(self, number):    
+    def disp_number(self, number):
+        """ Display number as integer. Valid range is 0 to 9999. """
         num = int(number)
-        if num>9999 or num<0:
+        if (num>9999) or (num<0):
             return
         self.clear_disp()
-        i = 3
+        matrix = 3
         while num:
             digit = num % 10
-            self.set_raw64(LED8x8_ICONS['%1i'%digit], i)
+            self.set_raw64(LED8x8_ICONS['%1i'%digit], matrix)
             num /= 10
-            i -= 1
+            matrix -= 1
