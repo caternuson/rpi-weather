@@ -25,9 +25,9 @@ display = RpiWeather()
 #------------------------------------
 NOAA_URL    = "graphical.weather.gov"
 REQ_BASE    = r"/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?"
-ZIPCODE     = 98109
 TIME_FORMAT = "12+hourly"
 NUM_DAYS    = 4
+ZIPCODE     = 98109
 REQUEST = REQ_BASE + "zipCodeList={0}&".format(ZIPCODE)+\
                      "format={0}&".format(TIME_FORMAT)+\
                      "numDays={0}".format(NUM_DAYS)

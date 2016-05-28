@@ -21,24 +21,30 @@ class RpiWeather():
           m.begin()
           
     def is_valid_matrix(self, matrix):
-        """ Returns True if matrix number is valid, otherwise False. """
+        """Returns True if matrix number is valid, otherwise False."""
         return matrix in xrange(len(self.matrix))     
           
-    def clear_disp(self, ):
-        """ Clear each matrix in the display. """
-        for m in self.matrix:
-            m.clear()
-            m.write_display()
+    def clear_disp(self, matrix=None):
+        """Clear specified matrix. If none specified, clear all."""
+        if matrix==None:
+            for m in self.matrix:
+                m.clear()
+                m.write_display()
+        else:
+            if not self.is_valid_matrix(matrix):
+                return
+            self.matrix[matrix].clear()
+            self.matrix[matrix].write_display()
             
     def set_pixel(self, x, y, matrix=0, value=1):
-        """ Set pixel at position x, y for specified matrix to the given value. """
+        """Set pixel at position x, y for specified matrix to the given value."""
         if not self.is_valid_matrix(matrix):
             return
         self.matrix[matrix].set_pixel(x, y, value)
         self.matrix[matrix].write_display()
           
     def set_bitmap(self, bitmap, matrix=0):
-        """ Set specified matrix to provided bitmap. """
+        """Set specified matrix to provided bitmap."""
         if not self.is_valid_matrix(matrix):
             return
         for x in xrange(8):
@@ -47,7 +53,7 @@ class RpiWeather():
         self.matrix[matrix].write_display()
       
     def set_raw64(self, value, matrix=0):
-        """ Set specified matrix to bitmap defined by 64 bit value. """
+        """Set specified matrix to bitmap defined by 64 bit value."""
         if not self.is_valid_matrix(matrix):
             return        
         self.matrix[matrix].clear()
@@ -59,7 +65,7 @@ class RpiWeather():
         self.matrix[matrix].write_display()
         
     def disp_number(self, number):
-        """ Display number as integer. Valid range is 0 to 9999. """
+        """Display number as integer. Valid range is 0 to 9999."""
         num = int(number)
         if (num>9999) or (num<0):
             return
