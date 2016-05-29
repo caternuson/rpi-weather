@@ -7,6 +7,7 @@
 # Carter Nelson
 #===============================================================================
 from Tkinter import *
+from PIL import Image, ImageDraw
 from Adafruit_LED_Backpack import Matrix8x8
 
 matrix = Matrix8x8.Matrix8x8(address=0x70)
@@ -84,12 +85,38 @@ class App:
         self.display()
 
     def save_it(self):
-        """Save current settings to a text file.""" 
-        with open("led.out","w") as FILE:
+        """Save current bitmap to text file and image file.""" 
+        with open("led8x8.txt","w") as FILE:
             for x in xrange(8):
                 for y in xrange(8):
                     FILE.write("{0}, ".format(self.vars[x][y].get()))
                 FILE.write("\n")
+                
+        W = 100
+        H = 100
+        X = 8
+        Y = 8
+        
+        image = Image.new("RGB", (W, H), "black")
+        draw = ImageDraw.Draw(image)
+        
+        draw.polygon([(2,2),(W-2,2),(W-2,H-2),(2,H-2)], outline="white")
+        
+        dx = W/(X+1)
+        dy = H/(Y+1)
+        r = (min(dx,dy)-1)/2
+        
+        for nx in xrange(1,X+1):
+            for ny in xrange(1,Y+1):
+                cx = nx*dx
+                cy = ny*dy
+                draw.ellipse(
+                    [(cx-r,cy-r),(cx+r,cy+r)],
+                    outline="black",
+                    fill="red" if self.vars[ny-1][nx-1].get() else "gray"
+                    )
+                
+        image.save("led8x8.jpg")        
                 
 #-------------------------------------------------------------------------------
 #  M A I N
