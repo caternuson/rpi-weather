@@ -10,6 +10,7 @@ from Adafruit_LED_Backpack import Matrix8x8
 from led8x8icons import LED8x8_ICONS
 
 class RpiWeather():
+    """Class for interfacing to Raspberry Pi with four Adafruit 8x8 LEDs attached."""
     
     def __init__(self, ):
         self.matrix = []
