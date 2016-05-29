@@ -1,10 +1,10 @@
 #===============================================================================
 # weatherx.py
 #
-# Get weather forecast from NOAA and turn it into "icons"
-#   * Tailored to work with 12-hour format
+# Get weather forecast from NOAA and display as 8x8 icons
 #   * NOAA's doc: http://graphical.weather.gov/xml/rest.php
 #   * Set location using zipcode
+#   * Uses 12+hourly format
 #   * Somewhat generalized for any number of days
 #
 # 2014-09-14
@@ -38,7 +38,7 @@ REQUEST = REQ_BASE + "zipCodeList={0}&".format(ZIPCODE)+\
 def giveup():
     for matrix in xrange(4):
         display.set_raw64(LED8x8_ICONS['UNKNOWN'],matrix)
-    print "something happened...giving up...."
+    print "Error occured."
     sys.exit(1)
     
 #------------------------------------
@@ -62,19 +62,19 @@ dom = parseString(data)
 #------------------------------------
 vals = dom.getElementsByTagName("weather-conditions")
 if len(vals)<2*NUM_DAYS:
-    print "Wrong stuff: len = %d   NUM_DAYS = %d" % (len(vals), NUM_DAYS)
+    print "Request-Result Mismatch: REQ=%d RES=%d" % (NUM_DAYS,len(vals))
     giveup()
 
 #------------------------------------
 # get forecast
+# if request made before 6AM, result is: [night][day][night][day]...
+# if   "      "   after   "     "    "   [day][night][day][night]... 
 #------------------------------------
-offset = 0
-if time.localtime().tm_hour < 6:
-    offset = 1
+offset = 1 if time.localtime().tm_hour < 6 else 0
 forecast = [e.getAttribute("weather-summary") for e in vals[offset::2]]
 
 #------------------------------------
-# print results
+# print results to screen
 #------------------------------------
 print '-'*20
 print time.strftime('%Y/%m/%d %H:%M:%S')
@@ -85,14 +85,9 @@ for day in forecast:
 #------------------------------------
 # set matrix icons based on forecast text
 #------------------------------------
-for i in xrange(4):
-    if "SUNNY" in forecast[i].encode('ascii','ignore').upper():
-        display.set_raw64(LED8x8_ICONS['SUNNY'], i)
-    elif "RAIN" in forecast[i].encode('ascii','ignore').upper():
-        display.set_raw64(LED8x8_ICONS['RAIN'], i)
-    elif "CLOUD" in forecast[i].encode('ascii','ignore').upper():
-        display.set_raw64(LED8x8_ICONS['CLOUD'], i)
-    elif "SHOWERS" in forecast[i].encode('ascii','ignore').upper():
-        display.set_raw64(LED8x8_ICONS['SHOWERS'], i)
-    else:
-        display.set_raw64(LED8x8_ICONS['UNKNOWN'], i)
+icons = ['SUNNY','RAIN','CLOUD','SHOWERS']
+for matrix in xrange(4):
+    display.set_raw64(LED8x8_ICONS['UNKNOWN'], matrix)    
+    for icon in icons:
+        if icon in forecast[matrix].encode('ascii','ignore').upper():
+            display.set_raw64(LED8x8_ICONS[icon], matrix)
