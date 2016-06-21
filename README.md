@@ -1,11 +1,48 @@
-rpi-weather
-===========
+# rpi-weather
+Python 2.7 application to get local weather forecast and display results
+via icons on LED 8x8 matrices.
 
-Python code for 8x8 LED weather forecast display. The main program is **weatherx.py**. All other programs are just
-examples of other things that can be done with the display. See the wiki for other details.
+# Hardware
+This program should work with any Raspberry Pi although I have only tested it
+with an original Model A (yes, an A). Also, any 4 Adafruit 8x8 LED
+Matrices with I2C Backpacks should work. Be sure to solder the address jumpers
+to set unique addresses for each. Expected range is 0x70-0x73.
 
-* weatherx.py - show weather forecast
-* rpi_weather.py - class to define hardware
-* led8x8icons.py - a dictionary of 64bit icon values
-* clock.py - turns the display in to a clock
+# Software
+A brief description of the various software components.
+* ```weatherx.py``` - gets and displays forecast
+* ```rpi_weather.py``` - defines a class for interfacing with the hardware
+* ```led8x8icons.py``` - contains a dictionary of icons
+* ```clock.py``` - displays the time, for use as a clock
 
+# Dependencies
+*  Adafruit Python Library for LED Backpacks
+** https://github.com/adafruit/Adafruit_Python_LED_Backpack
+
+# Install
+Simply clone this repo and run:
+```
+$ git clone https://github.com/caternuson/rpi-weather.git
+$ cd rpi-weather
+$ sudo python weatherx.py
+```
+
+# Configure
+Set the ```ZIPCODE``` to desired location:
+```python
+ZIPCODE = 98109
+```
+
+# NOAA REST
+The forecast is determined using the [NOAA REST](http://graphical.weather.gov/xml/rest.php)
+service. Specifically, the ***Summarized Data for One or More Zipcodes***. A
+typical request looks like:
+```
+http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?zipCodeList=98109&format=12+hourly&numDays=4
+```
+The key bits being:
+* ```zipCodeList``` - zipcode for forecast
+* ```format``` - choose either 12 or 24 hour period
+* ```numDays``` - number of days in forecast
+The request returns XML data. The icons are set by a simple text search in the
+*weather-summary* attribute of the *weather-conditions* tag.
