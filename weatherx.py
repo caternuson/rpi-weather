@@ -4,7 +4,7 @@
 # Get weather forecast from NOAA and display as 8x8 icons
 #   * NOAA's doc: http://graphical.weather.gov/xml/rest.php
 #   * Set location using zipcode
-#   * Uses 12+hourly format
+#   * Use 12+hourly format
 #   * Somewhat generalized for any number of days
 #
 # 2014-09-14
@@ -100,9 +100,7 @@ def display_forecast(forecast=None):
 #-------------------------------------------------------------------------------
 #  M A I N
 #-------------------------------------------------------------------------------
-if __name__ == "__main__":
-    
+if __name__ == "__main__": 
     forecast = get_noaa_forecast()
-    
     print_forecast(forecast)
     display_forecast(forecast)
