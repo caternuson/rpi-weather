@@ -1,4 +1,5 @@
 # rpi-weather
+!(http://caternuson.github.io/rpi-weather-thumb.jpg)
 Python 2.7 application to get local weather forecast and display results
 via icons on LED 8x8 matrices.
 
