@@ -35,16 +35,17 @@ ZIPCODE = 98109
 
 # Automation
 The easiest way to have the program run on a daily basis is to use ```cron```.
-Use ```crontab -e``` to add the following entry:
+Use ```crontab -e``` to add the following entry, which will run the program
+every morning at 4AM:
 ```
 0 4 * * * sudo -E PYTHONPATH=$PYTHONPATH python /home/pi/rpi-weather/weatherx.py
 ```
-This will run the program every morning at 4AM. **NOTE:** If you installed the
-program in a different location, change the path accordingly.
+**NOTE:** If you installed the program in a different location, change the path
+accordingly.
 
 # NOAA REST
 The forecast is determined using the [NOAA REST](http://graphical.weather.gov/xml/rest.php)
-service. Specifically, the **Summarized Data for One or More Zipcodes**. A
+web service. Specifically, the **Summarized Data for One or More Zipcodes**. A
 typical request looks like:
 ```
 http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?zipCodeList=98109&format=12+hourly&numDays=4
