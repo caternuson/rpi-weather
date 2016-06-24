@@ -58,3 +58,6 @@ The key bits being:
 
 The request returns XML data. The icons are set by a simple text search in the
 ```weather-summary``` attribute of the ```weather-conditions``` tag.
+
+# Icons
+![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg)
