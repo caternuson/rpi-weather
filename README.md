@@ -60,10 +60,10 @@ The request returns XML data. The icons are set by a simple text search in the
 ```weather-summary``` attribute of the ```weather-conditions``` tag.
 
 # Icons
-| If weather-summary contains  | Show this icon |
+| Show this icon | If weather-summary contains  |
 | :---: | :---: |
-| SUNNY | ![SUNNY](https://github.com/caternuson/rpi-weather/blob/gh-pages/SUNNY.jpg) |
-| RAIN | ![RAIN](https://github.com/caternuson/rpi-weather/blob/gh-pages/RAIN.jpg) |
-| CLOUD | ![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg) |
-| SHOWERS | ![SHOWERS](https://github.com/caternuson/rpi-weather/blob/gh-pages/SHOWERS.jpg) |
-| none of the above | ![UNKNOWN](https://github.com/caternuson/rpi-weather/blob/gh-pages/UNKNOWN.jpg) |
+| ![SUNNY](https://github.com/caternuson/rpi-weather/blob/gh-pages/SUNNY.jpg) | SUNNY |
+| ![RAIN](https://github.com/caternuson/rpi-weather/blob/gh-pages/RAIN.jpg) | RAIN |
+| ![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg) | CLOUD |
+| ![SHOWERS](https://github.com/caternuson/rpi-weather/blob/gh-pages/SHOWERS.jpg) | SHOWERS |
+| ![UNKNOWN](https://github.com/caternuson/rpi-weather/blob/gh-pages/UNKNOWN.jpg) | none of the above |
