@@ -62,7 +62,7 @@ The request returns XML data. The icons are set by a simple text search in the
 # Icons
 | If weather-summary contains  | Show this icon |
 | --- | --- |
-| sun | ![SUN](https://github.com/caternuson/rpi-weather/blob/gh-pages/SUN.jpg) |
+| sunny | ![SUNNY](https://github.com/caternuson/rpi-weather/blob/gh-pages/SUNNY.jpg) |
 | rain | ![RAIN](https://github.com/caternuson/rpi-weather/blob/gh-pages/RAIN.jpg) |
 | cloud | ![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg) |
 | showers | ![SHOWERS](https://github.com/caternuson/rpi-weather/blob/gh-pages/SHOWERS.jpg) |
