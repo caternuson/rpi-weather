@@ -60,4 +60,10 @@ The request returns XML data. The icons are set by a simple text search in the
 ```weather-summary``` attribute of the ```weather-conditions``` tag.
 
 # Icons
-![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg)
+| If weather-summary contains  | Show this icon |
+| --- | --- |
+| sun | ![SUN](https://github.com/caternuson/rpi-weather/blob/gh-pages/SUN.jpg) |
+| rain | ![RAIN](https://github.com/caternuson/rpi-weather/blob/gh-pages/RAIN.jpg) |
+| cloud | ![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg) |
+| showers | ![SHOWERS](https://github.com/caternuson/rpi-weather/blob/gh-pages/SHOWERS.jpg) |
+| none of the above | ![UNKNOWN](https://github.com/caternuson/rpi-weather/blob/gh-pages/UNKNOWN.jpg) |
