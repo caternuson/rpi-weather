@@ -11,7 +11,7 @@ to set unique addresses for each. Expected range is 0x70-0x73.
 
 # Software
 A brief description of the various software components.
-* ```weatherx.py``` - gets and displays forecast
+* ```weather.py``` - gets and displays forecast
 * ```rpi_weather.py``` - defines a class for interfacing with the hardware
 * ```led8x8icons.py``` - contains a dictionary of icons
 * ```clock.py``` - displays the time, for use as a clock
@@ -25,7 +25,7 @@ Simply clone this repo and run:
 ```
 $ git clone https://github.com/caternuson/rpi-weather.git
 $ cd rpi-weather
-$ sudo python weatherx.py
+$ sudo python weather.py
 ```
 
 # Configure
@@ -39,7 +39,7 @@ The easiest way to have the program run on a daily basis is to use ```cron```.
 Use ```crontab -e``` to add the following entry, which will run the program
 every morning at 4AM:
 ```
-0 4 * * * sudo -E PYTHONPATH=$PYTHONPATH python /home/pi/rpi-weather/weatherx.py
+0 4 * * * sudo -E PYTHONPATH=$PYTHONPATH python /home/pi/rpi-weather/weather.py
 ```
 **NOTE:** If you installed the program in a different location, change the path
 accordingly.
