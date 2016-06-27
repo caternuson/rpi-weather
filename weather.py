@@ -1,5 +1,5 @@
 #===============================================================================
-# weatherx.py
+# weather.py
 #
 # Get weather forecast from NOAA and display as 8x8 icons
 #   * NOAA's doc: http://graphical.weather.gov/xml/rest.php
@@ -18,7 +18,7 @@ from xml.dom.minidom import parseString
 from rpi_weather import RpiWeather
 from led8x8icons import LED8x8_ICONS
 
-icons = ['SUNNY','RAIN','CLOUD','SHOWERS']
+icons = ['SUNNY','RAIN','CLOUD','SHOWERS','SNOW']
 
 ZIPCODE     = 98109
 NUM_DAYS    = 4
