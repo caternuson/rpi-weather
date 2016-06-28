@@ -7,6 +7,7 @@
 # Carter Nelson
 #===============================================================================
 import time
+
 from rpi_weather import RpiWeather
 from led8x8icons import LED8x8_ICONS
 
@@ -15,6 +16,7 @@ display = RpiWeather()
 old_val = 0
    
 while True:
+    """Loop forever, updating every 10 seconds."""
     hour = time.localtime().tm_hour
     if hour>12:
         hour -= 12 
