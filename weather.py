@@ -26,7 +26,6 @@ NOAA_URL    = "graphical.weather.gov"
 REQ_BASE    = r"/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?"
 TIME_FORMAT = "12+hourly"
 
-
 display = RpiWeather()
 
 def giveup():
@@ -54,11 +53,11 @@ def get_offset():
     else:
         return 1
     
-def make_noaa_request(zip=ZIPCODE, time_format=TIME_FORMAT, num_days=NUM_DAYS):
+def make_noaa_request():
     """Make request to NOAA REST server and return data."""
-    REQUEST = REQ_BASE + "zipCodeList={0:05d}&".format(zip)+\
-                        "format={0}&".format(time_format)+\
-                        "numDays={0}".format(num_days)    
+    REQUEST = REQ_BASE + "zipCodeList={0:05d}&".format(ZIPCODE)+\
+                        "format={0}&".format(TIME_FORMAT)+\
+                        "numDays={0}".format(NUM_DAYS)    
     try:
         conn = httplib.HTTPConnection(NOAA_URL)
         conn.request("GET", REQUEST)
@@ -69,12 +68,12 @@ def make_noaa_request(zip=ZIPCODE, time_format=TIME_FORMAT, num_days=NUM_DAYS):
     else:
         return data
     
-def get_noaa_forecast(zip=ZIPCODE):
+def get_noaa_forecast():
     """Return a string of forecast results."""
-    vals = parseString(make_noaa_request(zip)) \
+    vals = parseString(make_noaa_request()) \
             .getElementsByTagName("weather-conditions")
     
-    if len(vals)<2*NUM_DAYS:
+    if len(vals) < 2*NUM_DAYS:
         print "Request-Result Mismatch: REQ=%d RES=%d" % (NUM_DAYS,len(vals))
         giveup()
         
@@ -89,18 +88,18 @@ def get_noaa_forecast(zip=ZIPCODE):
     
 def print_forecast(forecast=None):
     """Print forecast to screen."""
-    if forecast==None:
+    if forecast == None:
         return
     print '-'*20
     print time.strftime('%Y/%m/%d %H:%M:%S')
-    print "ZIP={0}".format(ZIPCODE)
+    print "ZIPCODE {0}".format(ZIPCODE)
     print '-'*20
     for daily in forecast:
         print daily
         
 def display_forecast(forecast=None):
     """Display forecast as icons on LED 8x8 matrices."""
-    if forecast==None:
+    if forecast == None:
         return
     for matrix in xrange(4):
         display.set_raw64(LED8x8_ICONS['UNKNOWN'], matrix)    
@@ -113,9 +112,7 @@ def display_forecast(forecast=None):
 #-------------------------------------------------------------------------------
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        zip = validate_zip(sys.argv[1])
-    else:
-        zip = ZIPCODE
-    forecast = get_noaa_forecast(zip)
+        ZIPCODE = validate_zip(sys.argv[1])
+    forecast = get_noaa_forecast()
     print_forecast(forecast)
     display_forecast(forecast)
