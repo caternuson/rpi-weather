@@ -68,20 +68,17 @@ class RpiWeather():
         self.matrix[matrix].write_display()
         
     def scroll_raw64(self, value, matrix=0, delay=0.15):
-        """Scroll the current bitmap with the supplied bitmap for the specified
-        display. Rate is specified with delay.
+        """Scroll out the current bitmap with the supplied bitmap. Can also
+        specify a matrix (0-3) and a delay to set scroll rate.
         """
-        for i in xrange(8):
-            for y in xrange(7,-1,-1):
-                if y > i:
-                    row = self.matrix[matrix].buffer[(y-1)*2]
-                else:
-                    row = (value >> (8*(y+7-i))) & 0xff
-                    # rotate to fix memory buffer error
-                    row = (row << 7 | row >> 1) & 0xff   
-                self.matrix[matrix].buffer[y*2] = row
+        for step in xrange(7,-1,-1):
+            for old_row in xrange(7,0,-1):
+                self.matrix[matrix].buffer[old_row*2] = self.matrix[matrix].buffer[(old_row -1)*2]
+            new_row = (value >> (8*step)) & 0xff
+            new_row = (new_row << 7 | new_row >> 1) & 0xff  #fix for memory buffer error
+            self.matrix[matrix].buffer[0] = new_row
             self.matrix[matrix].write_display()
-            sleep(delay)
+            sleep(delay)   
         
     def disp_number(self, number):
         """Display number as integer. Valid range is 0 to 9999."""
