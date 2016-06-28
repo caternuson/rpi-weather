@@ -66,5 +66,6 @@ The request returns XML data. The icons are set by a simple text search in the
 | ![RAIN](https://github.com/caternuson/rpi-weather/blob/gh-pages/RAIN.jpg) | RAIN |
 | ![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg) | CLOUD |
 | ![SHOWERS](https://github.com/caternuson/rpi-weather/blob/gh-pages/SHOWERS.jpg) | SHOWERS |
+| ![STORM](https://github.com/caternuson/rpi-weather/blob/gh-pages/STORM.jpg) | STORM |
 | ![SNOW](https://github.com/caternuson/rpi-weather/blob/gh-pages/SNOW.jpg) | SNOW |
 | ![UNKNOWN](https://github.com/caternuson/rpi-weather/blob/gh-pages/UNKNOWN.jpg) | none of the above |
