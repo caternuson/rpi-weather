@@ -9,7 +9,6 @@
 import time
 
 from rpi_weather import RpiWeather
-from led8x8icons import LED8x8_ICONS
 
 display = RpiWeather()
 

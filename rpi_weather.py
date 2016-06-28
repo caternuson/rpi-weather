@@ -9,7 +9,7 @@
 from time import sleep
 
 from Adafruit_LED_Backpack import Matrix8x8
-from led8x8icons import LED8x8_ICONS
+from led8x8icons import LED8x8ICONS
 
 class RpiWeather():
     """Class for interfacing to Raspberry Pi with four Adafruit 8x8 LEDs attached."""
@@ -72,15 +72,14 @@ class RpiWeather():
         display. Rate is specified with delay.
         """
         for i in xrange(8):
-            print "SCROLL i = {0}".format(i)
             for y in xrange(7,-1,-1):
-                print y
                 if y > i:
-                    self.matrix[matrix].buffer[y*2] = self.matrix[matrix].buffer[(y-1)*2]
+                    row = self.matrix[matrix].buffer[(y-1)*2]
                 else:
                     row = (value >> (8*(y+7-i))) & 0xff
-                    row = (row << 7 | row >> 1) & 0xff
-                    self.matrix[matrix].buffer[y*2] = row
+                    # rotate to fix memory buffer error
+                    row = (row << 7 | row >> 1) & 0xff   
+                self.matrix[matrix].buffer[y*2] = row
             self.matrix[matrix].write_display()
             sleep(delay)
         
@@ -93,6 +92,6 @@ class RpiWeather():
         matrix = 3
         while num:
             digit = num % 10
-            self.set_raw64(LED8x8_ICONS['%1i'%digit], matrix)
+            self.set_raw64(LED8x8ICONS['%1i'%digit], matrix)
             num /= 10
             matrix -= 1

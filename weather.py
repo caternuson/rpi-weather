@@ -16,7 +16,7 @@ import sys
 from xml.dom.minidom import parseString
 
 from rpi_weather import RpiWeather
-from led8x8icons import LED8x8_ICONS
+from led8x8icons import LED8x8ICONS
 
 icons = ['SUNNY','RAIN','CLOUD','SHOWERS','SNOW','STORM']
 
@@ -31,7 +31,7 @@ display = RpiWeather()
 def giveup():
     """Action to take if anything bad happens."""
     for matrix in xrange(4):
-        display.set_raw64(LED8x8_ICONS['UNKNOWN'],matrix)
+        display.set_raw64(LED8x8ICONS['UNKNOWN'],matrix)
     print "Error occured."
     sys.exit(1)
     
@@ -102,10 +102,10 @@ def display_forecast(forecast=None):
     if forecast == None:
         return
     for matrix in xrange(4):
-        display.set_raw64(LED8x8_ICONS['UNKNOWN'], matrix)    
+        display.set_raw64(LED8x8ICONS['UNKNOWN'], matrix)    
         for icon in icons:
             if icon in forecast[matrix].encode('ascii','ignore').upper():
-                display.set_raw64(LED8x8_ICONS[icon], matrix)
+                display.set_raw64(LED8x8ICONS[icon], matrix)
                 
 #-------------------------------------------------------------------------------
 #  M A I N
