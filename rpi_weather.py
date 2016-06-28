@@ -6,6 +6,8 @@
 # 2015-04-15
 # Carter Nelson
 #===============================================================================
+from time import sleep
+
 from Adafruit_LED_Backpack import Matrix8x8
 from led8x8icons import LED8x8_ICONS
 
@@ -52,7 +54,7 @@ class RpiWeather():
             for y in xrange(8):
                 self.matrix[matrix].set_pixel(x, y, bitmap[y][x])
         self.matrix[matrix].write_display()
-      
+        
     def set_raw64(self, value, matrix=0):
         """Set specified matrix to bitmap defined by 64 bit value."""
         if not self.is_valid_matrix(matrix):
@@ -64,6 +66,23 @@ class RpiWeather():
                 pixel_bit = row_byte>>x&1 
                 self.matrix[matrix].set_pixel(x, y, pixel_bit) 
         self.matrix[matrix].write_display()
+        
+    def scroll_raw64(self, value, matrix=0, delay=0.15):
+        """Scroll the current bitmap with the supplied bitmap for the specified
+        display. Rate is specified with delay.
+        """
+        for i in xrange(8):
+            print "SCROLL i = {0}".format(i)
+            for y in xrange(7,-1,-1):
+                print y
+                if y > i:
+                    self.matrix[matrix].buffer[y*2] = self.matrix[matrix].buffer[(y-1)*2]
+                else:
+                    row = (value >> (8*(y+7-i))) & 0xff
+                    row = (row << 7 | row >> 1) & 0xff
+                    self.matrix[matrix].buffer[y*2] = row
+            self.matrix[matrix].write_display()
+            sleep(delay)
         
     def disp_number(self, number):
         """Display number as integer. Valid range is 0 to 9999."""
