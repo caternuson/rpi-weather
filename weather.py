@@ -18,16 +18,14 @@ from xml.dom.minidom import parseString
 from rpi_weather import RpiWeather
 from led8x8icons import LED8x8_ICONS
 
-icons = ['SUNNY','RAIN','CLOUD','SHOWERS','SNOW']
+icons = ['SUNNY','RAIN','CLOUD','SHOWERS','SNOW','STORM']
 
 ZIPCODE     = 98109
 NUM_DAYS    = 4
 NOAA_URL    = "graphical.weather.gov"
 REQ_BASE    = r"/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?"
 TIME_FORMAT = "12+hourly"
-REQUEST = REQ_BASE + "zipCodeList={0}&".format(ZIPCODE)+\
-                     "format={0}&".format(TIME_FORMAT)+\
-                     "numDays={0}".format(NUM_DAYS)
+
 
 display = RpiWeather()
 
@@ -37,6 +35,16 @@ def giveup():
         display.set_raw64(LED8x8_ICONS['UNKNOWN'],matrix)
     print "Error occured."
     sys.exit(1)
+    
+def validate_zip(zip_arg):
+    """Return integer conversion of supplied string if valid, global default ZIPCODE otherwise."""
+    try:
+        zip = int(zip_arg)
+        if zip < 99999 and zip > 0:
+            return zip
+    except ValueError:
+        pass
+    return ZIPCODE
 
 def get_offset():
     """ Returns 0 if local time after 6AM and before 6PM, 1 otherwise."""
@@ -46,8 +54,11 @@ def get_offset():
     else:
         return 1
     
-def make_noaa_request():
+def make_noaa_request(zip=ZIPCODE, time_format=TIME_FORMAT, num_days=NUM_DAYS):
     """Make request to NOAA REST server and return data."""
+    REQUEST = REQ_BASE + "zipCodeList={0:05d}&".format(zip)+\
+                        "format={0}&".format(time_format)+\
+                        "numDays={0}".format(num_days)    
     try:
         conn = httplib.HTTPConnection(NOAA_URL)
         conn.request("GET", REQUEST)
@@ -58,9 +69,9 @@ def make_noaa_request():
     else:
         return data
     
-def get_noaa_forecast():
+def get_noaa_forecast(zip=ZIPCODE):
     """Return a string of forecast results."""
-    vals = parseString(make_noaa_request()) \
+    vals = parseString(make_noaa_request(zip)) \
             .getElementsByTagName("weather-conditions")
     
     if len(vals)<2*NUM_DAYS:
@@ -100,7 +111,11 @@ def display_forecast(forecast=None):
 #-------------------------------------------------------------------------------
 #  M A I N
 #-------------------------------------------------------------------------------
-if __name__ == "__main__": 
-    forecast = get_noaa_forecast()
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        zip = validate_zip(sys.argv[1])
+    else:
+        zip = ZIPCODE
+    forecast = get_noaa_forecast(zip)
     print_forecast(forecast)
     display_forecast(forecast)
