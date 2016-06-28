@@ -34,8 +34,8 @@ set in the code:
 ```python
 ZIPCODE = 98109
 ```
-The zipcode can also be passed in from the command line. This overrides the
-default value:
+The zipcode can also be passed in from the command line, which will override the
+default:
 ```
 $ sudo python weather.py 98109
 ```
