@@ -29,14 +29,15 @@ $ sudo python weather.py
 ```
 
 # Configure
-The desired forecast location is specified with a zipcode. This can either be
-specified on the command line:
-```
-$ sudo python weather.py 98109
-```
-or by changing the default value in the code:
+The forecast location is specified with a zipcode. A default zipcode can be
+set in the code:
 ```python
 ZIPCODE = 98109
+```
+The zipcode can also be passed in from the command line. This overrides the
+default value:
+```
+$ sudo python weather.py 98109
 ```
 
 # Automation
