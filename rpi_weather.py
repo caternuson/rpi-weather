@@ -21,7 +21,7 @@ class RpiWeather():
         self.matrix.append(Matrix8x8.Matrix8x8(address=0x72, busnum=1))
         self.matrix.append(Matrix8x8.Matrix8x8(address=0x73, busnum=1))
         for m in self.matrix:
-          m.begin()
+            m.begin()
           
     def is_valid_matrix(self, matrix):
         """Returns True if matrix number is valid, otherwise False."""
@@ -29,7 +29,7 @@ class RpiWeather():
           
     def clear_disp(self, matrix=None):
         """Clear specified matrix. If none specified, clear all."""
-        if matrix==None:
+        if matrix == None:
             for m in self.matrix:
                 m.clear()
                 m.write_display()
@@ -61,9 +61,9 @@ class RpiWeather():
             return        
         self.matrix[matrix].clear()
         for y in xrange(8):
-            row_byte = value>>(8*y)
+            row_byte = value >> (8*y)
             for x in xrange(8):
-                pixel_bit = row_byte>>x&1 
+                pixel_bit = row_byte >> x & 0x01 
                 self.matrix[matrix].set_pixel(x, y, pixel_bit) 
         self.matrix[matrix].write_display()
         
@@ -73,7 +73,7 @@ class RpiWeather():
         """
         for step in xrange(7,-1,-1):
             for old_row in xrange(7,0,-1):
-                self.matrix[matrix].buffer[old_row*2] = self.matrix[matrix].buffer[(old_row -1)*2]
+                self.matrix[matrix].buffer[old_row*2] = self.matrix[matrix].buffer[(old_row-1)*2]
             new_row = (value >> (8*step)) & 0xff
             new_row = (new_row << 7 | new_row >> 1) & 0xff  #fix for memory buffer error
             self.matrix[matrix].buffer[0] = new_row
@@ -83,12 +83,12 @@ class RpiWeather():
     def disp_number(self, number):
         """Display number as integer. Valid range is 0 to 9999."""
         num = int(number)
-        if (num>9999) or (num<0):
+        if num > 9999 or num < 0:
             return
         self.clear_disp()
         matrix = 3
         while num:
             digit = num % 10
-            self.set_raw64(LED8x8ICONS['%1i'%digit], matrix)
+            self.set_raw64(LED8x8ICONS['{0}'.format(digit)], matrix)
             num /= 10
             matrix -= 1
