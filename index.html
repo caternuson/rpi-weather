@@ -3,12 +3,35 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-  <div class="container">
-    <h1>rpi-weather</h1>
-    <p>Place holder</p>
+<body class="bd-docs">
+<div class="container">
+  <h1>RPI WEATHER</h1>
+  <h5>Raspberry Pi based weather forecast display.</h5>
+</div>
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab_home"><span class="material-icons">home</span></a></li>
+    <li><a data-toggle="tab" href="#tab_build"><span class="material-icons">settings</span></a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="tab_home" class="tab-pane active">
+      <h2>ABOUT</h2>
+      <p>
+        About it.
+      </p>
+    </div>
+    <div id="tab_build" class="tab-pane">
+      <h2>BUILD INSTRUCTIONS</h2>
+      <p>
+        How to.
+      </p>
+    </div>
   </div>
+</div>
 </body>  
 </html>
