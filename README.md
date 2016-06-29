@@ -68,10 +68,10 @@ The request returns XML data. The icons are set by a simple text search in the
 # Icons
 | Show this icon | If weather-summary contains  |
 | :---: | :---: |
-| ![SUNNY](https://github.com/caternuson/rpi-weather/blob/gh-pages/SUNNY.jpg) | SUNNY |
-| ![RAIN](https://github.com/caternuson/rpi-weather/blob/gh-pages/RAIN.jpg) | RAIN |
-| ![CLOUD](https://github.com/caternuson/rpi-weather/blob/gh-pages/CLOUD.jpg) | CLOUD |
-| ![SHOWERS](https://github.com/caternuson/rpi-weather/blob/gh-pages/SHOWERS.jpg) | SHOWERS |
-| ![STORM](https://github.com/caternuson/rpi-weather/blob/gh-pages/STORM.jpg) | STORM |
-| ![SNOW](https://github.com/caternuson/rpi-weather/blob/gh-pages/SNOW.jpg) | SNOW |
-| ![UNKNOWN](https://github.com/caternuson/rpi-weather/blob/gh-pages/UNKNOWN.jpg) | none of the above |
+| ![SUNNY](http://caternuson.github.io/rpi-weather/static/SUNNY.jpg) | SUNNY |
+| ![RAIN](http://caternuson.github.io/rpi-weather/static/RAIN.jpg) | RAIN |
+| ![CLOUD](http://caternuson.github.io/rpi-weather/static/CLOUD.jpg) | CLOUD |
+| ![SHOWERS](http://caternuson.github.io/rpi-weather/static/SHOWERS.jpg) | SHOWERS |
+| ![STORM](http://caternuson.github.io/rpi-weather/static/STORM.jpg) | STORM |
+| ![SNOW](http://caternuson.github.io/rpi-weather/static/SNOW.jpg) | SNOW |
+| ![UNKNOWN](http://caternuson.github.io/rpi-weather/static/UNKNOWN.jpg) | none of the above |
