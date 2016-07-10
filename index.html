@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body class="bd-docs">
@@ -17,13 +17,13 @@
   </p>      
 </div>
 <div class="container">
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#tab_home"><span class="material-icons">home</span></a></li>
-    <li><a data-toggle="tab" href="#tab_software"><span class="material-icons">computer</span></a></li>
-    <li><a data-toggle="tab" href="#tab_build"><span class="material-icons">settings</span></a></li>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a role="tab" data-toggle="tab" href="#tab_home"><span class="material-icons">home</span></a></li>
+    <li role="presentation"><a role="tab" data-toggle="tab" href="#tab_software"><span class="material-icons">computer</span></a></li>
+    <li role="presentation"><a role="tab" data-toggle="tab" href="#tab_build"><span class="material-icons">settings</span></a></li>
   </ul>
   <div class="tab-content">
-    <div id="tab_home" class="tab-pane active">
+    <div role="tabpanel" id="tab_home" class="tab-pane active">
       <p>
       <figure>
         <img class="img-rounded img-responsive" src="static/rpi-weather-banner.jpg"/>
@@ -76,14 +76,14 @@
         </div>
       </div>
     </div>
-    <div id="tab_software" class="tab-pane">
+    <div role="tabpanel" id="tab_software" class="tab-pane">
       <h2>SOFTWARE</h2>
       <p>
         The software is available on <a target="_blank" href="https://github.com/caternuson/rpi-weather">GitHub</a>,
         where there is also a description of how it all works.
       </p>
     </div>
-    <div id="tab_build" class="tab-pane">
+    <div role="tabpanel" id="tab_build" class="tab-pane">
       <h2>HARDWARE</h2>
       <p>
         Here are some details on the wooden case used for this project.
