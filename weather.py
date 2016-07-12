@@ -40,7 +40,7 @@ def validate_zip(zip_arg):
     """Return integer conversion of supplied string if valid, global default ZIPCODE otherwise."""
     try:
         zip = int(zip_arg)
-        if zip < 99999 and zip > 0:
+        if zip < 99999 and zip > 0 and len(zip_arg) == 5:
             return zip
     except ValueError:
         pass
