@@ -11,7 +11,9 @@ to set unique addresses for each. Expected range is 0x70-0x73.
 
 # Software
 A brief description of the various software components.
-* ```weather.py``` - gets and displays forecast
+* ```weather.py``` - gets and displays forecast from NOAA (**US ONLY**)
+* ```weather_forecastio.py``` - gets and displays forecast from [forecast.io](forecast.io)
+* ```weather_openweather.py``` - gets and displays forecast from [openweathermap.org](openweathermap.org)
 * ```rpi_weather.py``` - defines a class for interfacing with the hardware
 * ```led8x8icons.py``` - contains a dictionary of icons
 * ```clock.py``` - displays the time, for use as a clock
@@ -28,7 +30,7 @@ $ cd rpi-weather
 $ sudo python weather.py
 ```
 
-# Configure
+# Configure (NOAA)
 The forecast location is specified with a zipcode. A default zipcode can be
 set in the code:
 ```python
@@ -39,6 +41,20 @@ default:
 ```
 $ sudo python weather.py 98109
 ```
+
+# Configure (forecast.io and openweathermap.org)
+You will need an API key to use these services. Each page has instructions
+for how do this. You will also need the latitude and longitude for your
+location. Once you have this info, create a file called ```weather.cfg``
+with the following contents:
+```
+[config]
+APIKEY: your_api_key
+LAT: your_latitude
+LON: your_longitude
+```
+replacing the ```your_*``` info as needed. **NOTE:** west longitudes are negative,
+use decimal values for both.
 
 # Automation
 The easiest way to have the program run on a daily basis is to use ```cron```.
@@ -65,8 +81,11 @@ The key bits being:
 The request returns XML data. The icons are set by a simple text search in the
 ```weather-summary``` attribute of the ```weather-conditions``` tag.
 
+# forecast.io and openweathermap.org
+An ```ICON_MAP``` is defined to map forecast results to a specific LED 8x8 icon.
+
 # Icons
-| Show this icon | If weather-summary contains  |
+| Icon | Weather  |
 | :---: | :---: |
 | ![SUNNY](http://caternuson.github.io/rpi-weather/static/SUNNY.jpg) | SUNNY |
 | ![RAIN](http://caternuson.github.io/rpi-weather/static/RAIN.jpg) | RAIN |
