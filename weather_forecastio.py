@@ -20,7 +20,7 @@ display = RpiWeather()
 
 FORECASTIO_URL    = "api.forecast.io"
 REQ_BASE    = r"/forecast/"
-CONFIG_FILE = "forecastio.cfg"
+CONFIG_FILE = "weather.cfg"
 APIKEY = None
 LAT = None
 LON = None
