@@ -45,7 +45,7 @@ $ sudo python weather.py 98109
 # Configure (forecast.io and openweathermap.org)
 You will need an API key to use these services. Each page has instructions
 for how to do this. You will also need the latitude and longitude for your
-location. Once you have this info, create a file called ```weather.cfg``
+location. Once you have this info, create a file called ```weather.cfg```
 with the following contents:
 ```
 [config]
