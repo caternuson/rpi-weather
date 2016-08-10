@@ -11,7 +11,8 @@ to set unique addresses for each. Expected range is 0x70-0x73.
 
 # Software
 A brief description of the various software components.
-* ```weather.py``` - gets and displays forecast from NOAA (**US ONLY**)
+* ```weather.py``` - gets and displays forecast from [NOAA](http://graphical.weather.gov/xml/rest.php) (**US ONLY**)
+* ```weather_metoffice.py``` - gets and displays forecast from [metoffice.gov.uk](metoffice.gov.uk) (**UK ONLY**)
 * ```weather_forecastio.py``` - gets and displays forecast from [forecast.io](forecast.io)
 * ```weather_openweather.py``` - gets and displays forecast from [openweathermap.org](openweathermap.org)
 * ```rpi_weather.py``` - defines a class for interfacing with the hardware
@@ -41,6 +42,24 @@ default:
 ```
 $ sudo python weather.py 98109
 ```
+
+# Configure (metoffice.gov.uk)
+You will need an API key to use these services, available [here](http://www.metoffice.gov.uk/datapoint/API).
+You will also need to determine your location ID. To get that you need to hit this url:
+```
+http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/sitelist?key=[YOUR_API_KEY_HERE]
+```
+and search for your nearest location. If you can't find the location you are after you can hit the [main site](http://www.metoffice.gov.uk) and use their front-end search to find the closest location they have,
+then get the code for that from the api response above.
+
+Once you have this info, create a file called ```weather.cfg```
+with the following contents:
+```
+[config]
+API_KEY: your_api_key
+LOCATION_ID: your_location_id
+```
+replacing the ```your_*``` info as needed. 
 
 # Configure (forecast.io and openweathermap.org)
 You will need an API key to use these services. Each website has instructions
