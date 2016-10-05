@@ -12,9 +12,9 @@ to set unique addresses for each. Expected range is 0x70-0x73.
 # Software
 A brief description of the various software components.
 * ```weather.py``` - gets and displays forecast from [NOAA](http://graphical.weather.gov/xml/rest.php) (**US ONLY**)
-* ```weather_metoffice.py``` - gets and displays forecast from [metoffice.gov.uk](metoffice.gov.uk) (**UK ONLY**)
-* ```weather_forecastio.py``` - gets and displays forecast from [forecast.io](forecast.io)
-* ```weather_openweather.py``` - gets and displays forecast from [openweathermap.org](openweathermap.org)
+* ```weather_metoffice.py``` - gets and displays forecast from [metoffice.gov.uk](http://metoffice.gov.uk) (**UK ONLY**)
+* ```weather_forecastio.py``` - gets and displays forecast from [forecast.io](http://forecast.io)
+* ```weather_openweather.py``` - gets and displays forecast from [openweathermap.org](http://openweathermap.org)
 * ```rpi_weather.py``` - defines a class for interfacing with the hardware
 * ```led8x8icons.py``` - contains a dictionary of icons
 * ```clock.py``` - displays the time, for use as a clock
