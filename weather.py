@@ -26,6 +26,7 @@ NUM_DAYS    = 4
 NOAA_URL    = "graphical.weather.gov"
 REQ_BASE    = r"/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?"
 TIME_FORMAT = "12+hourly"
+HEADERS     = {"User-Agent":"Mozilla/5.0"}
 
 display = RpiWeather()
 
@@ -60,8 +61,8 @@ def make_noaa_request():
                         "format={0}&".format(TIME_FORMAT)+\
                         "numDays={0}".format(NUM_DAYS)    
     try:
-        conn = httplib.HTTPConnection(NOAA_URL)
-        conn.request("GET", REQUEST)
+        conn = httplib.HTTPSConnection(NOAA_URL)
+        conn.request("GET", REQUEST, headers=HEADERS)
         resp = conn.getresponse()
         data = resp.read()
     except:
@@ -71,9 +72,12 @@ def make_noaa_request():
     
 def get_noaa_forecast():
     """Return a string of forecast results."""
-    vals = parseString(make_noaa_request()) \
-            .getElementsByTagName("weather-conditions")
-    
+    try:
+        vals = parseString(make_noaa_request()) \
+                .getElementsByTagName("weather-conditions")
+    except:
+        giveup()
+        
     if len(vals) < 2*NUM_DAYS:
         print "Request-Result Mismatch: REQ=%d RES=%d" % (NUM_DAYS,len(vals))
         giveup()
