@@ -21,7 +21,7 @@ from led8x8icons import LED8x8ICONS
 
 icons = ['SUNNY','RAIN','CLOUD','SHOWERS','SNOW','STORM']
 
-ZIPCODE     = 98109
+ZIPCODE     = 98070
 NUM_DAYS    = 4
 NOAA_URL    = "graphical.weather.gov"
 REQ_BASE    = r"/xml/sample_products/browser_interface/ndfdBrowserClientByDay.php?"
